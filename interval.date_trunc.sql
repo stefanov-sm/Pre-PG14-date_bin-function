@@ -1,4 +1,4 @@
-create or replace function util.date_trunc(value integer, unit text, ts timestamptz)
+create or replace function date_trunc(value integer, unit text, ts timestamptz)
 returns timestamptz language plpgsql immutable as
 $function$
 declare
