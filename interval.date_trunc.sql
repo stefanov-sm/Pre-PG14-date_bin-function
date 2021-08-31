@@ -14,7 +14,6 @@ begin
       when unit in ('second', 'seconds') then 'minute'
       when unit in ('minute', 'minutes') then 'hour'
       when unit in ('hour', 'hours') then 'day'
-      else null
     end;
 
     if higher_unit is null then
