@@ -1,5 +1,5 @@
 create or replace function util.date_trunc(value integer, unit text, ts timestamptz)
-returns timestamptz language plpgsql as
+returns timestamptz language plpgsql immutable as
 $function$
 declare
     higher_unit text;
