@@ -6,7 +6,6 @@ declare
     dynsql_template constant text := $SQL$ 
    	SELECT date_trunc('__HIGHER_UNIT__', $1) + 
 	 (extract(__UNIT__ from $1)::integer/__VALUE__) * __VALUE__  * interval '1 __UNIT__';$SQL$;
-    dynsql text;
     retval timestamptz;
 begin
     higher_unit := 
@@ -20,11 +19,8 @@ begin
         raise 'date_trunc: timestamp unit "%" unknown or not supported. Use "seconds", "minutes" or "hours".', unit;
     end if;
 
-    dynsql := replace(dynsql_template, '__UNIT__', unit);
-    dynsql := replace(dynsql, '__HIGHER_UNIT__', higher_unit);
-    dynsql := replace(dynsql, '__VALUE__', value::text);
-
-    execute dynsql using ts into retval;
+    execute replace(replace(replace(dynsql_template,'__UNIT__',unit),'__HIGHER_UNIT__',higher_unit),'__VALUE__',value::text)
+   		using ts into retval;
     return retval;
 end;
 $function$;
