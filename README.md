@@ -1,4 +1,4 @@
-# timestamp date_trunc  
+# interval date_trunc  
 ```sql
 function date_trunc(value integer, unit text, ts timestamptz) returns timestamptz
 ```
