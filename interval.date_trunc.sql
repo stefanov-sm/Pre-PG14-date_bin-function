@@ -9,14 +9,16 @@ declare
     dynsql text;
     retval timestamptz;
 begin
-    higher_unit := case
-        when unit = 'second' or unit = 'seconds' then 'minute'
-        when unit = 'minute' or unit = 'minutes' then 'hour'
-        when unit = 'hour'   or unit = 'hours'   then 'day'
-        else null end;
+    higher_unit := 
+    case
+      when unit in ('second', 'seconds') then 'minute'
+      when unit in ('minute', 'minutes') then 'hour'
+      when unit in ('hour', 'hours') then 'day'
+      else null
+    end;
 
     if higher_unit is null then
-        raise 'Timestamp unit "%" unknown or not supported. Use "seconds", "minutes" or "hours".', unit;
+        raise 'date_trunc: timestamp unit "%" unknown or not supported. Use "seconds", "minutes" or "hours".', unit;
     end if;
 
     dynsql := replace(dynsql_template, '__UNIT__', unit);
