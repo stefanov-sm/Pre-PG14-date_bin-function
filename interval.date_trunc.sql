@@ -19,8 +19,7 @@ begin
         raise 'date_trunc: timestamp unit "%" unknown or not supported. Use "seconds", "minutes" or "hours".', unit;
     end if;
 
-    execute replace(replace(replace(dynsql_template,'__UNIT__',unit),'__HIGHER_UNIT__',higher_unit),'__VALUE__',value::text)
-   		using ts into retval;
+    execute replace(replace(replace(dynsql_template,'__UNIT__',unit),'__HIGHER_UNIT__',higher_unit),'__VALUE__',value::text) using ts into retval;
     return retval;
 end;
 $function$;
