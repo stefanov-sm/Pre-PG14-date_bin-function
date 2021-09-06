@@ -16,7 +16,8 @@ begin
     end;
 
     if higher_unit is null then
-        raise 'date_trunc: timestamp unit "%" unknown or not supported. Use "seconds", "minutes" or "hours".', unit;
+        raise exception 'date_trunc: timestamp unit "%" unknown or not supported.', unit
+        using hint = 'Use "seconds", "minutes" or "hours". Value must be a positive exact divisor of 60 or 24 respectively';
     end if;
 
     execute replace(replace(replace(dynsql_template,
