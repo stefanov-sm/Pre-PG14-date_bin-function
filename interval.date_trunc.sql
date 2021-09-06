@@ -1,12 +1,12 @@
-create or replace function date_trunc(value integer, unit text, ts timestamptz)
-returns timestamptz language plpgsql immutable as
+create or replace function date_trunc(value integer, unit text, ts timestamp with time zone)
+returns timestamp with time zone language plpgsql immutable as
 $function$
 declare
     higher_unit text;
     dynsql_template constant text := $SQL$ 
    	SELECT date_trunc('__HIGHER_UNIT__', $1) + 
 	 (extract(__UNIT__ from $1)::integer/__VALUE__) * __VALUE__  * interval '1 __UNIT__';$SQL$;
-    retval timestamptz;
+    retval timestamp with time zone;
 begin
     higher_unit := 
     case
