@@ -7,6 +7,5 @@ returns timestamptz;
 ```sql
 select now(), date_trunc(interval '10 seconds', now());
 ```
-yields
-```
-2021-09-13 23:18:27.256826, 2021-09-13 23:18:20.0
+yields  
+2021-09-13 23:18:**27.256826**, 2021-09-13 23:18:**20.0**
