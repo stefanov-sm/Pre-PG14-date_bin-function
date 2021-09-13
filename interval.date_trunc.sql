@@ -1,30 +1,9 @@
-create or replace function date_trunc(value integer, unit text, ts timestamp with time zone)
-returns timestamp with time zone language plpgsql immutable as
+create or replace function util.date_trunc
+  (trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z')
+  returns timestamptz language sql immutable as
 $function$
-declare
-    higher_unit text;
-    dynsql_template constant text := $SQL$ 
-   	SELECT date_trunc('__HIGHER_UNIT__', $1) + 
-	 (extract(__UNIT__ from $1)::integer/__VALUE__) * __VALUE__  * interval '1 __UNIT__';$SQL$;
-    retval timestamp with time zone;
-begin
-    higher_unit := 
-    case
-      when unit in ('second', 'seconds') then 'minute'
-      when unit in ('minute', 'minutes') then 'hour'
-      when unit in ('hour', 'hours') then 'day'
-    end;
-
-    if higher_unit is null then
-        raise exception 'date_trunc: timestamp unit "%" unknown or not supported.', unit
-        using hint = 'Use "seconds", "minutes" or "hours". Value must be a positive exact divisor of 60 or 24 respectively';
-    end if;
-
-    execute replace(replace(replace(dynsql_template,
-                    '__UNIT__', unit),
-                    '__HIGHER_UNIT__', higher_unit),
-                    '__VALUE__', value::text)
-        using ts into retval;
-    return retval;
-end;
+select
+  base_ts
+  + floor(extract(epoch from ts - base_ts) / extract(epoch from trunc_period))::bigint
+  * trunc_period;
 $function$;
