@@ -1,4 +1,4 @@
-create or replace function util.date_trunc
+create or replace function date_trunc
   (trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z')
   returns timestamptz language sql immutable as
 $function$
