@@ -1,9 +1,11 @@
 # Postgresql interval date_trunc  
 ```sql
-function date_trunc(value integer, unit text, ts timestamptz) returns timestamptz
+function date_trunc(trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z') returns timestamptz
 ```
-`unit` may be second(s), minute(s) or hour(s), `value` must be a positive exact divisor of 60 or 24 respectively.
+### Demo
 ```sql
-select now(), date_trunc(10, 'seconds', now());
+select now(), date_trunc(interval '10 seconds', now());
 ```
-yields 2021-08-31 20:42:**33.613605**, 2021-08-31 20:42:**30.0**
+yields
+```
+2021-09-13 23:18:27.256826, 2021-09-13 23:18:20.0
