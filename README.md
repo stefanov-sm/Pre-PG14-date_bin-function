@@ -1,6 +1,7 @@
 # Postgresql interval date_trunc  
 ```sql
-function date_trunc(trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z') returns timestamptz
+function date_trunc(trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z')
+returns timestamptz;
 ```
 ### Demo
 ```sql
