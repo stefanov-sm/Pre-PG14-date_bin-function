@@ -1,9 +1,10 @@
-# Postgresql interval date_trunc  
+## Postgresql interval date_trunc  
+#### Postgresql `date_trunc` by interval. Can be used for running interval aggregation in time series data scenarios. 
 ```sql
 function date_trunc(trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z')
 returns timestamptz;
 ```
-### Demo
+#### Demo
 ```sql
 select now(), date_trunc(interval '10 seconds', now());
 ```
