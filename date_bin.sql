@@ -1,5 +1,5 @@
 create or replace function date_bin
- (trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z')
+ (trunc_period interval, ts timestamptz, base_ts timestamptz default 'epoch')
  returns timestamptz language sql immutable as
 $$
 select
