@@ -1,7 +1,7 @@
 ## Postgresql date_bin function for versions prior to PG14  
 #### Postgresql `date_trunc` by interval. Can be used for running interval aggregation in time series data scenarios. 
 ```sql
-function date_bin(trunc_period interval, ts timestamptz, base_ts timestamptz default '1970-01-01Z')
+function date_bin(trunc_period interval, ts timestamptz, base_ts timestamptz default 'epoch')
 returns timestamptz;
 ```
 #### Demo
